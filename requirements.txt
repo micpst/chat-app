@@ -1,4 +1,7 @@
-Flask==2.1.1
-Flask-SocketIO==5.1.1
+Flask-Login==0.6.0
 Flask-SQLAlchemy==2.5.1
+Flask-SocketIO==5.1.1
+Flask-WTF==1.0.1
+Flask==2.1.1
 python-dotenv==0.20.0
+email-validator==1.1.3

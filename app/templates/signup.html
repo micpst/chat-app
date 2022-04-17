@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Chat - Sign up{% endblock %}
+
+{% block links %}<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />{% endblock %}
+
+{% block content %}
+<div class="center-container">
+    <form action="/signup" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-floating mb-3">
+            {{ form.name(
+                class="form-control" + (" is-invalid" if form.name.errors else ""),
+                placeholder="Name"
+            ) }}
+            {{ form.name.label }}
+        </div>
+        <div class="form-floating mb-3">
+            {{ form.email(
+                class="form-control" + (" is-invalid" if form.email.errors else ""),
+                placeholder="Email"
+            ) }}
+            {{ form.email.label }}
+        </div>
+        <div class="form-floating mb-3">
+            {{ form.password(
+                class="form-control" + (" is-invalid" if form.password.errors else ""),
+                placeholder="Password"
+            ) }}
+            {{ form.password.label }}
+        </div>
+        <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Sign Up</button>
+    </form>
+    <a href="/login" class="w-100 btn btn-lg btn-success" role="button">Log In</a>
+</div>
+{% endblock %}
