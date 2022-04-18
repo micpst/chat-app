@@ -2,10 +2,8 @@
 
 {% block title %}Chat - Log in{% endblock %}
 
-{% block links %}<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />{% endblock %}
-
 {% block content %}
-<div class="center-container">
+<div class="container mw-330 mt-20">
     <form action="/login" method="POST">
         {{ form.csrf_token }}
         <div class="form-floating mb-3">
