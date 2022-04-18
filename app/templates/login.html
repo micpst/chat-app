@@ -7,7 +7,7 @@
 {% block content %}
 <div class="center-container">
     <form action="/login" method="POST">
-        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
         <div class="form-floating mb-3">
             {{ form.email(
                 class="form-control" + (" is-invalid" if form.email.errors else ""),
@@ -22,7 +22,7 @@
             ) }}
             {{ form.password.label }}
         </div>
-        <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Log In</button>
+        {{ form.submit(class="w-100 btn btn-lg btn-primary mb-5") }}
     </form>
     <a href="/signup" class="w-100 btn btn-lg btn-success" role="button">Create new account</a>
 </div>

@@ -1,6 +1,6 @@
 from typing import Optional, Union
 from flask import Blueprint, flash, redirect, render_template, Response, request, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from app import db, login_manager
 from app.auth.forms import LoginForm, SignupForm
@@ -33,6 +33,9 @@ def signup() -> Union[str, Response]:
     """
     Signup page for unregistered users.
     """
+    if current_user.is_authenticated:
+        return redirect(url_for('main.chats'))
+
     form: SignupForm = SignupForm(request.form)
 
     if form.validate_on_submit():
@@ -61,6 +64,9 @@ def login() -> Union[str, Response]:
     """
     Login page for registered users.
     """
+    if current_user.is_authenticated:
+        return redirect(url_for('main.chats'))
+
     form: LoginForm = LoginForm(request.form)
 
     if form.validate_on_submit():
