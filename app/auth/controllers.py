@@ -34,7 +34,7 @@ def signup() -> Union[str, Response]:
     Signup page for unregistered users.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('main.chats'))
+        return redirect(url_for('chats.chats'))
 
     form: SignupForm = SignupForm(request.form)
 
@@ -52,7 +52,7 @@ def signup() -> Union[str, Response]:
             db.session.commit()
 
             login_user(user)
-            return redirect(url_for('main.chats'))
+            return redirect(url_for('chat.chats'))
 
         flash('User already exists.')
 
@@ -65,7 +65,7 @@ def login() -> Union[str, Response]:
     Login page for registered users.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('main.chats'))
+        return redirect(url_for('chat.chats'))
 
     form: LoginForm = LoginForm(request.form)
 
@@ -74,7 +74,7 @@ def login() -> Union[str, Response]:
 
         if user and user.verify_password(form.password.data):
             login_user(user)
-            return redirect(url_for('main.chats'))
+            return redirect(url_for('chat.chats'))
 
         flash('Invalid email or password.')
 
