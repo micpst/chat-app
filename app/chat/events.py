@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Type
 from flask_login import current_user
 from flask_socketio import close_room, emit, join_room
 
@@ -53,8 +53,8 @@ def handle_send(json: Optional[Dict[str, Any]] = None) -> None:
 
 
 @socketio.on_error()
-def handle_error(message: str):
+def handle_error(exc: Type[Exception]) -> None:
     """
-    Handler to emi.
+    Handler to emit error event to the client.
     """
-    emit('error', {'message': message})
+    emit('error', {'message': str(exc)}, to=current_user.id)
