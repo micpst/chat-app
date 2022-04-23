@@ -1,10 +1,12 @@
+from json import dumps
 from typing import Any, Dict, Optional, Type
 from flask_login import current_user
 from flask_socketio import close_room, emit, join_room
 
 from app import db, socketio
-from app.chat.models import Message
+from app.utils import to_dict
 from app.auth.models import User
+from app.chat.models import Message
 
 
 @socketio.on('connect')
@@ -37,8 +39,7 @@ def handle_send(json: Optional[Dict[str, Any]] = None) -> None:
     body: str = json.get('body', '')
     recipient_id: int = json.get('recipientId', -1)
 
-    user: Optional[User] = User.query.filter_by(id=recipient_id).first()
-    if user is None:
+    if User.query.get(recipient_id) is None:
         raise RuntimeError('User not found.')
 
     message: Message = Message(
@@ -49,7 +50,7 @@ def handle_send(json: Optional[Dict[str, Any]] = None) -> None:
     db.session.add(message)
     db.session.commit()
 
-    emit('receive', {'body': 'test'}, to=recipient_id)
+    emit('receive', dumps(to_dict(message), default=str), to=recipient_id)
 
 
 @socketio.on_error()
