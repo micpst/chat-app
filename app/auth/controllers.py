@@ -1,6 +1,7 @@
 from typing import Optional, Union
-from flask import Blueprint, flash, redirect, render_template, Response, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.wrappers.response import Response
 
 from app import db, login_manager
 from app.auth.forms import LoginForm, SignupForm

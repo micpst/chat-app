@@ -47,14 +47,12 @@ def get_chats() -> Response:
     """
     Endpoint to get all user chats with the label of the last message sent.
     """
-    messages: List[Row] = db.session\
-        .query(User.id, User.name, Message.sender_id, Message.body, Message.created_at, func.max(Message.created_at))\
-        .filter((Message.sender_id == current_user.id) | (Message.recipient_id == current_user.id))\
-        .join(User,
-              (User.id == Message.sender_id) & (Message.sender_id != current_user.id) |
-              (User.id == Message.recipient_id) & (Message.recipient_id != current_user.id)
-              )\
-        .group_by(User.id)\
+    messages: List[Row] = db.session \
+        .query(User.id, User.name, Message.sender_id, Message.body, Message.created_at, func.max(Message.created_at)) \
+        .filter((Message.sender_id == current_user.id) | (Message.recipient_id == current_user.id)) \
+        .join(User, (User.id == Message.sender_id) & (Message.sender_id != current_user.id) |
+                    (User.id == Message.recipient_id) & (Message.recipient_id != current_user.id)) \
+        .group_by(User.id) \
         .all()
     return jsonify(list(map(dict, messages)))
 
@@ -65,8 +63,9 @@ def get_chat_messages(user_id: int) -> Response:
     """
     Endpoint to get all messages sent to and received from the user.
     """
-    messages: List[Message] = db.session.query(Message).filter(
-        (Message.sender_id == current_user.id) & (Message.recipient_id == user_id) |
-        (Message.sender_id == user_id) & (Message.recipient_id == current_user.id)
-    ).all()
+    messages: List[Message] = db.session \
+        .query(Message) \
+        .filter((Message.sender_id == current_user.id) & (Message.recipient_id == user_id) |
+                (Message.sender_id == user_id) & (Message.recipient_id == current_user.id)) \
+        .all()
     return jsonify(list(map(to_dict, messages)))
