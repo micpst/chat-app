@@ -2,6 +2,247 @@
 
 {% block title %}Chat{% endblock %}
 
+{% block link %}
+<link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <!-- Title start -->
+        <div class="col-12 h-10 d-flex align-items-center border bg-light">
+            <h1>Chats</h1>
+        </div>
+        <!-- Title stop -->
+        <!-- Searchbar start -->
+        <div class="col-12 h-10 d-flex align-items-center border bg-light">
+            <div class="p-3 flex-fill border bg-light">Search bar</div>
+        </div>
+        <!-- Searchbar stop -->
+        <!-- Users list start -->
+        <div class="col-xl-2 col-lg-3 col-3 h-80 p-0 overflow-auto border bg-light">
+            <ul class="chat-list">
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="chat-list-item d-flex justify-content-center align-items-center">
+                    <div class="user-avatar">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                        <span class="user-status busy"></span>
+                    </div>
+                    <div class="user-details text-truncate">
+                        <div>
+                            <span class="fs-6 fw-bold">Steve Bangalter</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-truncate">
+                            <small class="text-muted text-truncate">Steve: O have a look a magnificent cake blah blah bla</small>
+                            <small class="text-muted">10 Apr</small>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Users list stop -->
+        <!-- Chat start -->
+        <div class="col-xl-10 col-lg-9 col-9 h-80 border bg-light">
+        </div>
+        <!-- Chat stop -->
+    </div>
+</div>
+{% endblock %}
+
 {% block script %}
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
