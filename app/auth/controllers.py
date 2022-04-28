@@ -57,7 +57,7 @@ def signup() -> Union[str, Response]:
 
         flash('User already exists.')
 
-    return render_template("signup.html", form=form)
+    return render_template('signup.html', form=form)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -79,15 +79,15 @@ def login() -> Union[str, Response]:
 
         flash('Invalid email or password.')
 
-    return render_template("login.html", form=form)
+    return render_template('login.html', form=form)
 
 
-@auth.route('/logout')
+@auth.route('/logout', methods=['GET'])
 @login_required
 def logout() -> Response:
     """
     Logout current user and redirect to the login page.
     """
     logout_user()
-    flash("You were logged out.")
-    return redirect(url_for("auth.login"))
+    flash('You were logged out.')
+    return redirect(url_for('auth.login'))
