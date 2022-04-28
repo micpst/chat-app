@@ -1,41 +1,18 @@
-const socket = io();
+let chats = [];
+let messages = [];
 
 const $ = selector => document.querySelector(selector);
+const chatTemplate = $('#chat-template').innerHTML;
 
-// const $messageForm = document.querySelector('#message-form');
-// const $messageFormInput = $messageForm.querySelector('input');
-// const $messageFormButton = $messageForm.querySelector('button');
-// const $sendLocationButton = document.querySelector('#send-location');
-// const $messages = document.querySelector('#messages');
-//
-// //Templates:
-// const messageTemplate = document.querySelector('#message-template').innerHTML;
-// const locationTemplate = document.querySelector('#location-template').innerHTML;
-// const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
+const socket = io();
 
+socket.on('receive', message => {
+    console.log(message);
+});
 
-const autoscroll = () => {
-    // New message element:
-    const $newMessage = $messages.lastElementChild;
-
-    // Height of the message:
-    const newMessageStyles = getComputedStyle($newMessage);
-    const newMessageMargin = parseInt(newMessageStyles.marginBottom);
-    const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
-
-    //Visible height:
-    const visibleHeight = $messages.offsetHeight;
-
-    //Height of messages container:
-    const containerHeight = $messages.scrollHeight;
-
-    //How far have I scorlled:
-    const scrollOffset = $messages.scrollTop + visibleHeight;
-
-    if (containerHeight - newMessageHeight <= scrollOffset) {
-        $messages.scrollTop = $messages.scrollHeight;
-    }
-};
+socket.on('error', message => {
+    console.log(message);
+});
 
 const getUsers = async () => {
     const response = await fetch('/api/users');
@@ -52,49 +29,17 @@ const getChatMessages = async chatId => {
     return await response.json();
 }
 
-const serachUsers = e => {
-
-}
-
-$('#user-search-input').addEventListener('input', e => {
-    console.log(e)
-});
-
-socket.on('receive', message => {
-    console.log(message);
-
-    // const html = Mustache.render(messageTemplate, {
-    //     user: message.user,
-    //     message: message.text,
-    //     createdAt: moment(message.createdAt).format('HH:mm')
-    // });
-    // $messages.insertAdjacentHTML('beforeend', html);
-    // autoscroll();
-});
-
-
-socket.on('error', message => {
-    console.log(message);
-
-});
-socket.emit('send', { body: 'test1', recipientId: 1 });
-
-// $messageForm.addEventListener('submit', e => {
-//     e.preventDefault();
-//
-//     $messageFormButton.setAttribute('disabled', 'disabled');
-//
-//     const message = e.target.elements.message.value;
-//     socket.emit('send', message, (status) => {
-//         // $messageFormButton.removeAttribute('disabled');
-//         // $messageFormInput.value = '';
-//         // $messageFormInput.focus();
-//         console.log(status);
-//     });
-// });
-
 window.addEventListener('DOMContentLoaded', async e => {
-    getChatMessages(2)
-    const chats = await getChats();
-    console.log(chats);
+    chats = await getChats();
+    if (chats.length) {
+        chats.forEach(({ recipientName, senderName, body, createdAt }) => {
+            const html = Mustache.render(chatTemplate,{
+                recipientName,
+                senderName,
+                body,
+                createdAt: moment(createdAt).format('HH:mm')
+            });
+            $('#chats').insertAdjacentHTML('beforeend', html);
+        });
+    }
 });
