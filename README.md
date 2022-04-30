@@ -9,15 +9,20 @@ A simple chat application written using Flask API with Socket.io.
 $ pip install -r requirements.txt
 ```
 
-### Run dev server
+### Spin up containers
 ```
-$ flask run
+$ py manage.py compose up -d
 ```
 
-## Dependencies
+### Create application database
+```
+$ py manage.py create-initial-db
+```
 
-- Flask 2.1.1
-- Flask-SocketIO 5.1.1
+### Terminate all running containers
+```
+$ py manage.py compose down
+```
 
 ## License
 All my code is MIT licensed. Libraries follow their respective licenses.
