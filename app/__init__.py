@@ -8,12 +8,12 @@ login_manager: LoginManager = LoginManager()
 socketio: SocketIO = SocketIO()
 
 
-def create_app() -> Flask:
+def create_app(config_name: str) -> Flask:
     """
     Application factory.
     """
     app: Flask = Flask(__name__, instance_relative_config=True)
-    app.config.from_object('config.Config')
+    app.config.from_object(f'app.config.{config_name.capitalize()}Config')
 
     db.init_app(app)
     login_manager.init_app(app)
