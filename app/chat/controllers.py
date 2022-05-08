@@ -58,13 +58,13 @@ def get_chats() -> Response:
                Sender.id.label('senderId'),
                Sender.name.label('senderName'),
                Message.body,
-               Message.created_at.label('createdAt'),
-               func.max(Message.created_at)) \
+               Message.created_at.label('createdAt')) \
         .filter((Message.sender_id == current_user.id) | (Message.recipient_id == current_user.id)) \
         .join(Recipient, (Recipient.id == Message.sender_id) & (Message.sender_id != current_user.id) |
                          (Recipient.id == Message.recipient_id) & (Message.recipient_id != current_user.id)) \
         .join(Sender, (Sender.id == Message.sender_id)) \
-        .group_by(Recipient.id) \
+        .distinct(Recipient.id) \
+        .order_by(Recipient.id, Message.created_at.desc()) \
         .all()
     return jsonify(list(map(dict, messages)))
 
