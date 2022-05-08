@@ -4,6 +4,7 @@ import subprocess
 
 import click
 import psycopg2
+
 from dotenv import load_dotenv
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
@@ -59,6 +60,19 @@ def run_sql(statements):
 @click.group()
 def cli():
     pass
+
+
+@cli.command(context_settings={'ignore_unknown_options': True})
+@click.argument('subcommand', nargs=-1, type=click.Path())
+def flask(subcommand):
+    load_env_file(os.getenv('APPLICATION_CONFIG'))
+    cmdline = ['flask'] + list(subcommand)
+    try:
+        p = subprocess.Popen(cmdline)
+        p.wait()
+    except KeyboardInterrupt:
+        p.send_signal(signal.SIGINT)
+        p.wait()
 
 
 @cli.command(context_settings={'ignore_unknown_options': True})

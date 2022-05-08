@@ -12,4 +12,4 @@ COPY . /code
 
 ENTRYPOINT [ "python" ]
 
-CMD [ "run.py" ]
+CMD [ "wsgi.py" ]

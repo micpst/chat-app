@@ -19,6 +19,11 @@ $ py manage.py compose up -d
 $ py manage.py create-initial-db
 ```
 
+### Apply migration
+```
+$ py manage.py flask db upgrade
+```
+
 ### Terminate all running containers
 ```
 $ py manage.py compose down

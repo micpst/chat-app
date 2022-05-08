@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_migrate import Migrate
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
 db: SQLAlchemy = SQLAlchemy()
 login_manager: LoginManager = LoginManager()
+migrate: Migrate = Migrate()
 socketio: SocketIO = SocketIO()
 
 
@@ -17,6 +19,7 @@ def create_app(config_name: str) -> Flask:
 
     db.init_app(app)
     login_manager.init_app(app)
+    migrate.init_app(app, db)
     socketio.init_app(app)
 
     with app.app_context():
@@ -25,7 +28,5 @@ def create_app(config_name: str) -> Flask:
 
         app.register_blueprint(auth)
         app.register_blueprint(chat)
-
-        db.create_all()
 
     return app
