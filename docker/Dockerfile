@@ -1,15 +1,14 @@
-FROM python:3.10-alpine
+FROM python:3.10-slim
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /code
+RUN mkdir /opt/code
+RUN mkdir /opt/requirements
+WORKDIR /opt/code
 
-COPY requirements.txt /code/requirements.txt
+COPY requirements.txt /opt/requirements/requirements.txt
+RUN apt-get update && \
+    apt-get -y install libpq-dev gcc && \
+    pip install -r /opt/requirements/requirements.txt
 
-RUN pip install -r requirements.txt
-
-COPY . /code
-
-ENTRYPOINT [ "python" ]
-
-CMD [ "wsgi.py" ]
+CMD [ "python", "wsgi.py" ]
