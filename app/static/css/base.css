@@ -11,8 +11,16 @@ body {
     height: 10% !important;
 }
 
+.h-20 {
+    height: 20% !important;
+}
+
 .h-80 {
     height: 80% !important;
+}
+
+.h-90 {
+    height: 90% !important;
 }
 
 .mt-20 {

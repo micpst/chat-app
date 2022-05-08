@@ -3,7 +3,8 @@
 {% block title %}Chat{% endblock %}
 
 {% block link %}
-<link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -14,18 +15,30 @@
             <h1>Chats</h1>
         </div>
         <!-- Title stop -->
-        <!-- Searchbar start -->
-        <div class="col-12 h-10 d-flex align-items-center border bg-light">
-            <div class="p-3 flex-fill border bg-light">Search bar</div>
+
+        <!-- Sidebar start -->
+        <div class="container-fluid col-3 h-90">
+            <div class="row h-100">
+                <!-- Searchbar start -->
+                <div class="col-12 h-10 d-flex align-items-center border bg-light">
+                    <div class="form-group w-100 has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </div>
+                <!-- Searchbar stop -->
+
+                <!-- Users list start -->
+                <div class="col-12 h-90 p-0 overflow-auto border bg-light">
+                    <ul id="chats" class="chat-list"></ul>
+                </div>
+                <!-- Users list stop -->
+            </div>
         </div>
-        <!-- Searchbar stop -->
-        <!-- Users list start -->
-        <div class="col-xl-2 col-lg-3 col-3 h-80 p-0 overflow-auto border bg-light">
-            <ul id="chats" class="chat-list"></ul>
-        </div>
-        <!-- Users list stop -->
+        <!-- Sidebar stop -->
+
         <!-- Chat start -->
-        <div class="col-xl-10 col-lg-9 col-9 h-80 border bg-light">
+        <div class="col-9 h-90 border bg-light">
         </div>
         <!-- Chat stop -->
     </div>
