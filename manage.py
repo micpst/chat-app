@@ -1,6 +1,7 @@
 import os
 import signal
 import subprocess
+import time
 
 import click
 import psycopg2
@@ -95,6 +96,31 @@ def create_initial_db():
         run_sql([f'CREATE DATABASE {database}'])
     except psycopg2.errors.DuplicateDatabase:
         print(f'The database {database} already exists and will not be recreated')
+
+
+@cli.command()
+@click.argument('filenames', nargs=-1)
+def test(filenames):
+    os.environ['APPLICATION_CONFIG'] = 'testing'
+    load_env_file(os.getenv('APPLICATION_CONFIG'))
+
+    cmdline = get_docker_compose_cmdline() + ['up', '-d']
+    subprocess.call(cmdline)
+
+    cmdline = get_docker_compose_cmdline() + ['logs', 'db']
+    logs = subprocess.check_output(cmdline)
+    while 'ready to accept connections' not in logs.decode('utf-8'):
+        time.sleep(.1)
+        logs = subprocess.check_output(cmdline)
+
+    run_sql([f"CREATE DATABASE {os.getenv('APPLICATION_DB')}"])
+
+    cmdline = ['pytest', '-svv', '--cov=app', '--cov-report=term-missing']
+    cmdline.extend(filenames)
+    subprocess.call(cmdline)
+
+    cmdline = get_docker_compose_cmdline() + ['down']
+    subprocess.call(cmdline)
 
 
 if __name__ == '__main__':

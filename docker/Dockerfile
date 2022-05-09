@@ -6,9 +6,9 @@ RUN mkdir /opt/code
 RUN mkdir /opt/requirements
 WORKDIR /opt/code
 
-COPY requirements.txt /opt/requirements/requirements.txt
+COPY requirements /opt/requirements
 RUN apt-get update && \
     apt-get -y install libpq-dev gcc && \
-    pip install -r /opt/requirements/requirements.txt
+    pip install -r /opt/requirements/development.txt
 
 CMD [ "python", "wsgi.py" ]
