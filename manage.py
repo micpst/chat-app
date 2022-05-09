@@ -108,10 +108,8 @@ def test(filenames):
     subprocess.call(cmdline)
 
     cmdline = get_docker_compose_cmdline() + ['logs', 'db']
-    logs = subprocess.check_output(cmdline)
-    while 'ready to accept connections' not in logs.decode('utf-8'):
+    while 'server started' not in subprocess.check_output(cmdline, encoding='utf-8'):
         time.sleep(.1)
-        logs = subprocess.check_output(cmdline)
 
     run_sql([f"CREATE DATABASE {os.getenv('APPLICATION_DB')}"])
 
