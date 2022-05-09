@@ -6,7 +6,7 @@ A simple chat application written using Flask API with Socket.io.
 
 ### Install requirements
 ```
-$ pip install -r requirements.txt
+$ pip install -r requirements/development.txt
 ```
 
 ### Spin up containers
@@ -27,6 +27,11 @@ $ py manage.py flask db upgrade
 ### Terminate all running containers
 ```
 $ py manage.py compose down
+```
+
+### Run tests
+```
+$ py manage.py test
 ```
 
 ## License
