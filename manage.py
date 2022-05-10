@@ -1,11 +1,9 @@
 import os
 import signal
 import subprocess
-import time
 
 import click
 import psycopg2
-
 from dotenv import load_dotenv
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
@@ -107,14 +105,14 @@ def test(filenames):
     cmdline = get_docker_compose_cmdline() + ['up', '-d']
     subprocess.call(cmdline)
 
-    cmdline = get_docker_compose_cmdline() + ['logs', 'db']
-    while 'server started' not in subprocess.check_output(cmdline, encoding='utf-8'):
-        time.sleep(.1)
+    while True:
+        try:
+            run_sql([f"CREATE DATABASE {os.getenv('APPLICATION_DB')}"])
+            break
+        except psycopg2.OperationalError:
+            pass
 
-    run_sql([f"CREATE DATABASE {os.getenv('APPLICATION_DB')}"])
-
-    cmdline = ['pytest', '-svv', '--cov=app', '--cov-report=term-missing']
-    cmdline.extend(filenames)
+    cmdline = ['pytest', '-svv', '--cov=app', '--cov-report=term-missing'] + list(filenames)
     subprocess.call(cmdline)
 
     cmdline = get_docker_compose_cmdline() + ['down']
