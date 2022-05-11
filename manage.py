@@ -7,7 +7,6 @@ import psycopg2
 from dotenv import load_dotenv
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-
 os.environ['APPLICATION_CONFIG'] = 'development'
 
 
@@ -115,7 +114,7 @@ def test(filenames):
     cmdline = ['pytest', '-svv', '--cov=app', '--cov-report=term-missing'] + list(filenames)
     subprocess.call(cmdline)
 
-    cmdline = get_docker_compose_cmdline() + ['down']
+    cmdline = get_docker_compose_cmdline() + ['down', '-v']
     subprocess.call(cmdline)
 
 
