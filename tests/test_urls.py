@@ -12,7 +12,7 @@ def test_get_path_not_authenticated(app_client, path, status_code):
     """
     Given a Flask application configured for testing
     When the path is requested (GET) and user is not authenticated
-    Then check that the response status code is valid
+    Then check that the correct response status code is returned
     """
     response = app_client.get(path)
     assert response.status_code == status_code
@@ -30,7 +30,7 @@ def test_get_path_authenticated(app_client, path, status_code):
     """
     Given a Flask application configured for testing
     When the path is requested (GET) and user is authenticated
-    Then check that the response status code is valid
+    Then check that the correct response status code is returned
     """
     response = app_client.get(path)
     assert response.status_code == status_code
