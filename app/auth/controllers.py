@@ -35,7 +35,7 @@ def signup() -> Union[str, Response]:
     Signup page for unregistered users.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('chats.chats'))
+        return redirect(url_for('chat.chats'))
 
     form: SignupForm = SignupForm(request.form)
 
