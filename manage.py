@@ -9,7 +9,7 @@ import psycopg2
 from dotenv import load_dotenv
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-os.environ['APPLICATION_CONFIG'] = 'development'
+os.environ['APPLICATION_CONFIG'] = os.getenv('APPLICATION_CONFIG', 'development')
 
 
 def get_env_file(config):
