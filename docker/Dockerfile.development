@@ -11,4 +11,4 @@ RUN apt-get update && \
     apt-get -y install libpq-dev gcc && \
     pip install -r /opt/requirements/development.txt
 
-CMD [ "python", "wsgi.py" ]
+CMD [ "flask", "run", "--host", "0.0.0.0" ]
