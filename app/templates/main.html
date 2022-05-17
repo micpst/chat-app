@@ -8,28 +8,26 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid h-100">
-    <div class="row h-100">
+<div class="container-fluid vh-100">
+    <div class="row vh-100">
         <!-- Title start -->
-        <div class="col-12 h-10 d-flex align-items-center border bg-light">
+        <div class="py-2 col-12 d-flex justify-content-between align-items-center border-bottom">
             <h1>Chats</h1>
+            <a role="button" href="{{ url_for('auth.logout') }}" class="btn btn-outline-secondary">Logout</a>
         </div>
         <!-- Title stop -->
 
         <!-- Sidebar start -->
-        <div class="container-fluid col-3 h-90">
-            <div class="row h-100">
+        <div class="container-fluid col-3 h-fill border-right">
+            <div class="h-100 d-flex flex-column">
                 <!-- Searchbar start -->
-                <div class="col-12 h-10 d-flex align-items-center border bg-light">
-                    <div class="form-group w-100 has-search">
-                        <span class="fa fa-search form-control-feedback"></span>
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
+                <div class="d-flex align-items-center my-2">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" />
                 </div>
                 <!-- Searchbar stop -->
 
                 <!-- Users list start -->
-                <div class="col-12 h-90 p-0 overflow-auto border bg-light">
+                <div class="p-0 overflow-auto">
                     <ul id="chats" class="chat-list"></ul>
                 </div>
                 <!-- Users list stop -->
@@ -38,7 +36,32 @@
         <!-- Sidebar stop -->
 
         <!-- Chat start -->
-        <div class="col-9 h-90 border bg-light">
+        <div class="col-9 p-0 h-fill chat d-flex flex-column">
+            <!-- Chat header start -->
+            <div class="d-flex p-3 border-bottom">
+                <div class="user-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    <span class="user-status busy"></span>
+                </div>
+                <div>
+                    <h6 class="m-b-0">Aiden Chavez</h6>
+                    <small>Last seen: 2 hours ago</small>
+                </div>
+            </div>
+            <!-- Chat header stop -->
+
+            <!-- Chat messages start -->
+            <div class="h-fill-chat overflow-auto chat-history">
+                <ul class="m-0 p-2">
+                </ul>
+            </div>
+            <!-- Chat messages stop -->
+
+            <!-- Chat message input start -->
+            <div class="p-2">
+                <textarea name="" class="form-control message-textarea" placeholder="Type your message..."></textarea>
+            </div>
+            <!-- Chat message input stop -->
         </div>
         <!-- Chat stop -->
     </div>
@@ -47,7 +70,7 @@
 
 {% block script %}
 <script id="chat-template" type="text/html">
-    <li class="chat-list-item d-flex align-items-center">
+    <li id="recipient-{% raw %}{{ recipientId }}{% endraw %}" class="chat-list-item d-flex justify-content-center align-items-center list-group-item list-group-item-action border-0">
         <div class="user-avatar">
             <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="">
             <span class="user-status busy"></span>
