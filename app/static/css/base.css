@@ -3,6 +3,11 @@ body {
     height: 100%;
 }
 
+.my-6 {
+    margin-top: 4.5rem!important;
+    margin-bottom: 4.5rem!important;
+}
+
 .mt-20 {
     margin-top: 20vh !important;
 }
