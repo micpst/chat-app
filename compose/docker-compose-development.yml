@@ -7,10 +7,13 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      APPLICATION_DB: ${APPLICATION_DB}
+      APPLICATION_TEST_DB: ${APPLICATION_TEST_DB}
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ${PWD}/backend/db/:/docker-entrypoint-initdb.d/
 
   backend:
     build:
@@ -21,14 +24,17 @@ services:
       FLASK_CONFIG: ${FLASK_CONFIG}
       SECRET_KEY: ${SECRET_KEY}
       APPLICATION_DB: ${APPLICATION_DB}
+      APPLICATION_TEST_DB: ${APPLICATION_TEST_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_HOSTNAME: "db"
+      POSTGRES_HOSTNAME: "database"
       POSTGRES_PORT: ${POSTGRES_PORT}
     volumes:
       - ${PWD}/backend/:/opt/code
     ports:
       - "5000:5000"
+    depends_on:
+      - database
 
 volumes:
   pgdata:
