@@ -37,4 +37,3 @@ class TestingConfig(Config):
     database = getenv('APPLICATION_TEST_DB')
 
     TESTING = True
-    WTF_CSRF_ENABLED = False
