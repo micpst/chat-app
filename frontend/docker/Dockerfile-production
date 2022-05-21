@@ -1,0 +1,21 @@
+# --------------> The build image
+FROM node:latest AS build
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+COPY package.json /usr/src/app/package.json
+COPY . /usr/src/app
+
+RUN yarn
+RUN yarn build
+
+# --------------> The production image
+FROM nginx:latest
+
+COPY ./nginx /etc/nginx
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+
+CMD [ "nginx", "-g", "daemon off;" ]

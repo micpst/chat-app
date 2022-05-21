@@ -14,3 +14,12 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+node_modules/
+.pnp
+.pnp.js
+
+coverage/
+
+yarn-debug.log*
+yarn-error.log*

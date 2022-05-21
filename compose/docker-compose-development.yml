@@ -36,5 +36,30 @@ services:
     depends_on:
       - database
 
+  frontend:
+    build:
+      context: ${PWD}/frontend
+      dockerfile: docker/Dockerfile-development
+    environment:
+      NODE_ENV: "development"
+      CHOKIDAR_USEPOLLING: true
+    volumes:
+      - ${PWD}/frontend/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx
+    volumes:
+      - ${PWD}/nginx/nginx-development.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+
 volumes:
   pgdata:
