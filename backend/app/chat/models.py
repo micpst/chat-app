@@ -1,7 +1,7 @@
 from sqlalchemy import func
 
 from app import db
-from app.auth.models import User
+from app.users.models import User
 
 
 class Message(db.Model):

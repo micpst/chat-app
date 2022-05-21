@@ -23,10 +23,12 @@ def create_app(config_name: str) -> Flask:
     socketio.init_app(app)
 
     with app.app_context():
-        from app.auth.controllers import auth
-        from app.chat.controllers import chat
+        from app.auth import auth_bp
+        from app.chat import chat_bp
+        from app.users import users_bp
 
-        app.register_blueprint(auth)
-        app.register_blueprint(chat)
+        app.register_blueprint(auth_bp, url_prefix='/api')
+        app.register_blueprint(chat_bp, url_prefix='/api')
+        app.register_blueprint(users_bp, url_prefix='/api')
 
     return app

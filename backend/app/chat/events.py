@@ -5,7 +5,7 @@ from flask_socketio import close_room, emit, join_room
 
 from app import db, socketio
 from app.utils import to_dict
-from app.auth.models import User
+from app.users.models import User
 from app.chat.models import Message
 
 
