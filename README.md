@@ -4,34 +4,24 @@ A simple chat application written using Flask API with Socket.io.
 
 ## Quick start
 
-### Install requirements
-```
-$ pip install -r requirements/development.txt
-```
-
 ### Spin up containers
 ```
-$ py manage.py compose up -d
-```
-
-### Create application database
-```
-$ py manage.py create-initial-db
+$ ./scripts/compose.sh development up -d
 ```
 
 ### Apply migration
 ```
-$ py manage.py flask db upgrade
+$ ./scripts/migrate.sh development
 ```
 
 ### Terminate all running containers
 ```
-$ py manage.py compose down
+$ ./scripts/compose.sh development down
 ```
 
 ### Run tests
 ```
-$ py manage.py test
+$ ./scripts/test.sh
 ```
 
 ## License
