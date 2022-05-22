@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 db: SQLAlchemy = SQLAlchemy()
 login_manager: LoginManager = LoginManager()
 migrate: Migrate = Migrate()
-socketio: SocketIO = SocketIO()
+socketio: SocketIO = SocketIO(path='/api/socket.io')
 
 
 def create_app(config_name: str) -> Flask:
