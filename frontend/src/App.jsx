@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from "./context/AuthContext";
-import { ChatPage, LoginPage, SignupPage } from './pages';
+import { Dashboard, Login, Signup } from './components';
 
 const App = () => (
     <AuthProvider>
@@ -14,15 +14,15 @@ const App = () => (
             />
             <Route
                 path="/chats"
-                element={<ChatPage />}
+                element={<Dashboard />}
             />
             <Route
                 path="/login"
-                element={<LoginPage />}
+                element={<Login />}
             />
             <Route
                 path="/signup"
-                element={<SignupPage />}
+                element={<Signup />}
             />
         </Routes>
     </AuthProvider>

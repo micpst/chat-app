@@ -4,28 +4,34 @@ const AUTH_SERVICE_URL = "http://localhost/api/auth";
 
 const signup = user => axios
     .post(`${AUTH_SERVICE_URL}/signup`, user)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+    .then(response => {
+        localStorage.setItem('authenticated', JSON.stringify(true));
+        return response.data;
+    });
 
 const login = user => axios
     .post(`${AUTH_SERVICE_URL}/login`, user)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+    .then(response => {
+        localStorage.setItem('authenticated', JSON.stringify(true));
+        return response.data;
+    });
 
 const logout = () => axios
-    .post(`${AUTH_SERVICE_URL}/login`, user)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+    .post(`${AUTH_SERVICE_URL}/logout`)
+    .then(response => {
+        localStorage.setItem('authenticated', JSON.stringify(false));
+        return response.data;
+    });
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+const isAuthenticated = () => {
+    return JSON.parse(localStorage.getItem('authenticated'));
 };
 
 const AuthService = {
     signup,
     login,
     logout,
-    getCurrentUser,
+    isAuthenticated,
 }
 
 export default AuthService;

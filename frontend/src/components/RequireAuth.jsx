@@ -6,8 +6,8 @@ import { useAuth } from "../context/AuthContext";
 function RequireAuth({ children }) {
     let auth = useAuth();
     let location = useLocation();
-
-    if (!auth.user) {
+    
+    if (!auth.authenticated) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

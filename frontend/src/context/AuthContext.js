@@ -1,39 +1,26 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import AuthService from '../services/auth.service';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    let [user, setUser] = useState(null);
+    const [authenticated, setAuthenticated] = useState(false);
 
-    let login = (newUser, callback) => {
-        return AuthService.login(() => {
-            setUser(newUser);
-            callback();
-        });
-    };
+    const signup = user => AuthService.signup(user)
+        .then(() => setAuthenticated(true));
 
-    let logout = callback => {
-        return AuthService.logout(() => {
-            setUser(null);
-            callback();
-        });
-    };
+    const login = user => AuthService.login(user)
+        .then(() => setAuthenticated(true));
 
-    let signup = callback => {
-        return AuthService.signup(() => {
-            setUser(null);
-            callback();
-        });
-    };
+    const logout = () => AuthService.logout()
+        .then(() => setAuthenticated(false));
 
-    useEffect(() => auth
-        .loadUser()
-        .then(({ user }) => setUser(user))
-        .catch(err => setUser(null))
-    , []);
+    useEffect(() => {
+        setAuthenticated(AuthService.isAuthenticated());
+    }, []);
 
-    return <AuthContext.Provider value={{ user, login, logout, signup }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ authenticated, signup, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);
