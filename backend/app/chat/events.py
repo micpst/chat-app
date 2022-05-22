@@ -1,5 +1,4 @@
 from json import dumps
-from typing import Any, Dict, Optional, Type
 from flask_login import current_user
 from flask_socketio import close_room, emit, join_room
 
@@ -10,19 +9,17 @@ from app.chat.models import Message
 
 
 @socketio.on('connect')
-def handle_connect() -> bool:
+def handle_connect():
     """
     Handler to authorize client and join user to his room.
     """
     if not current_user.is_authenticated:
         return False
-
     join_room(current_user.id)
-    return True
 
 
 @socketio.on('disconnect')
-def handle_disconnect() -> None:
+def handle_disconnect():
     """
     Handler to close client room.
     """
@@ -30,7 +27,7 @@ def handle_disconnect() -> None:
 
 
 @socketio.on('send')
-def handle_send(json: Optional[Dict[str, Any]] = None) -> None:
+def handle_send(json=None):
     """
     Handler to save client message and send it to the recipient.
     """
@@ -54,7 +51,7 @@ def handle_send(json: Optional[Dict[str, Any]] = None) -> None:
 
 
 @socketio.on_error()
-def handle_error(exc: Type[Exception]) -> None:
+def handle_error(exc):
     """
     Handler to emit error event to the client.
     """

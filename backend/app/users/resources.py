@@ -1,24 +1,29 @@
-from flask_restful import Resource
+from flask_login import login_required
+from flask_restful import Resource, fields, marshal
 
-from app import db
 from app.users.models import User
+
+user_fields = {
+    'id': fields.Integer,
+    'name': fields.String,
+}
 
 
 class UserList(Resource):
+    @login_required
     def get(self):
         """
         Endpoint to get all registered users.
         """
-        users = db.session.query(User.id, User.name).all()
-        return list(map(dict, users))
+        users = User.query.all()
+        return [marshal(user, user_fields) for user in users], 200
 
 
 class UserData(Resource):
+    @login_required
     def get(self, user_id):
-        return {'message': f'user #{user_id} get'}, 200
-
-    def put(self, user_id):
-        return {'message': f'user #{user_id} put'}, 200
-
-    def delete(self, user_id):
-        return {'message': f'user #{user_id} delete'}, 200
+        """
+        Endpoint to get data of desired user.
+        """
+        user = User.query.get(user_id)
+        return marshal(user, user_fields)

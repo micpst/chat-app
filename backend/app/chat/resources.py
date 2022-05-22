@@ -1,15 +1,30 @@
-from flask import jsonify
-from flask_login import current_user
-from flask_restful import Resource
+from flask_login import current_user, login_required
+from flask_restful import Resource, fields, marshal
 from sqlalchemy.orm import aliased
 
 from app import db
-from app.users.models import User
 from app.chat.models import Message
-from app.utils import to_dict
+from app.users.models import User
+
+chat_fields = {
+    'recipientId': fields.Integer,
+    'recipientName': fields.String,
+    'senderId': fields.Integer,
+    'senderName': fields.String,
+    'body': fields.String,
+    'createdAt': fields.DateTime
+}
+
+message_fields = {
+    'recipientId': fields.Integer,
+    'senderId': fields.Integer,
+    'body': fields.String,
+    'createdAt': fields.DateTime
+}
 
 
 class ChatList(Resource):
+    @login_required
     def get(self):
         """
         Endpoint to get all user chats with the label of the last message sent.
@@ -17,7 +32,7 @@ class ChatList(Resource):
         Recipient = aliased(User)
         Sender = aliased(User)
 
-        messages = db.session \
+        chats = db.session \
             .query(Recipient.id.label('recipientId'),
                    Recipient.name.label('recipientName'),
                    Sender.id.label('senderId'),
@@ -32,10 +47,11 @@ class ChatList(Resource):
             .order_by(Recipient.id, Message.created_at.desc()) \
             .all()
 
-        return list(map(dict, messages)), 200
+        return [marshal(chat, chat_fields) for chat in chats], 200
 
 
 class ChatData(Resource):
+    @login_required
     def get(self, user_id):
         """
         Endpoint to get all messages sent to and received from the user.
@@ -46,4 +62,4 @@ class ChatData(Resource):
                     (Message.sender_id == user_id) & (Message.recipient_id == current_user.id)) \
             .all()
 
-        return list(map(to_dict, messages)), 200
+        return [marshal(message, message_fields) for message in messages], 200
