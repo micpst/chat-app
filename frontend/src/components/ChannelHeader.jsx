@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useSocket } from '../context/SocketContext';
+import { useChat } from '../context/ChatContext';
 
 const ChannelHeader = () => {
-    const socket = useSocket();
+    const { channel } = useChat();
     return (
         <div className="d-flex p-3 border-bottom">
             <div className="position-relative">
@@ -11,7 +11,7 @@ const ChannelHeader = () => {
                 <span className="user-online"></span>
             </div>
             <div className="ms-3">
-                <h6 className="fw-bold m-b-0">test</h6>
+                <h6 className="fw-bold m-b-0">{channel.recipientName}</h6>
                 <small>Last seen: 2 hours ago</small>
             </div>
         </div>

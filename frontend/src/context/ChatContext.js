@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import ChatService from '../services/chat';
 import { useSocket } from './SocketContext';
@@ -11,7 +11,7 @@ export const ChatProvider = ({ children }) => {
     const { socket } = useSocket();
     const [channels, setChannels] = useState([]);
     const [messages, setMessages] = useState([]);
-    const [selectedChannelId, setSelectedChannelId] = useState(0);
+    const [selectedChannelId, setSelectedChannelId] = useState(-1);
 
     useEffect(() => {
         ChatService.getChannels()
@@ -49,6 +49,7 @@ export const ChatProvider = ({ children }) => {
         value={{
             channels,
             messages,
+            channel: channels.find(c => c.recipientId === selectedChannelId) || null,
             sendMessage,
             openChannel
         }}
