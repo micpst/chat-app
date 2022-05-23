@@ -43,6 +43,9 @@ services:
     environment:
       NODE_ENV: "development"
       CHOKIDAR_USEPOLLING: true
+      REACT_APP_AUTH_SERVICE_URL: ${REACT_APP_AUTH_SERVICE_URL}
+      REACT_APP_USERS_SERVICE_URL: ${REACT_APP_USERS_SERVICE_URL}
+      REACT_APP_CHATS_SERVICE_URL: ${REACT_APP_CHATS_SERVICE_URL}
     volumes:
       - ${PWD}/frontend/:/usr/src/app
       - /usr/src/app/node_modules
