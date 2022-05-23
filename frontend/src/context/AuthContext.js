@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import AuthService from '../services/auth';
@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const signup = user => AuthService.signup(user);
-    const login = user => AuthService.login(user);
-    const logout = () => AuthService.logout();
+    const signup = useCallback(user => AuthService.signup(user), []);
+    const login = useCallback(user => AuthService.login(user), []);
+    const logout = useCallback(() => AuthService.logout(), []);
 
     useEffect(() => {
         UserService.getCurrentUser()

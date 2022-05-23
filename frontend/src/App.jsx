@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from "./context/AuthContext";
 import { Dashboard, Login, Signup } from './components';
+import RequireAuth from './components/RequireAuth';
 
 const App = () => (
     <AuthProvider>
@@ -14,7 +15,7 @@ const App = () => (
             />
             <Route
                 path="/chats"
-                element={<Dashboard />}
+                element={<RequireAuth children={<Dashboard />} />}
             />
             <Route
                 path="/login"

@@ -1,24 +1,21 @@
 import React from 'react';
 
-import RequireAuth from '../components/RequireAuth';
-import { useAuth } from '../context/AuthContext';
+import { SocketProvider } from "../context/SocketContext";
+import { ChatProvider } from "../context/ChatContext";
+import Header from './Header';
+import SideBar from './SideBar';
+import Chat from './Chat';
 
-const Dashboard = () => {
-    let auth = useAuth();
-
-    const handleOnSubmit = e => {
-        e.preventDefault();
-        auth.logout();
-    }
-
-    return (
-        <RequireAuth>
-            <div>Chat page</div>
-            <form onSubmit={handleOnSubmit}>
-            <button type="submit">Logout</button>
-        </form>
-        </RequireAuth>
-    );
-}
+const Dashboard = () => (
+    <SocketProvider>
+        <ChatProvider>
+            <div className="row vh-100 mx-1">
+                <Header />
+                <SideBar />
+                <Chat />
+            </div>
+        </ChatProvider>
+    </SocketProvider>
+);
 
 export default Dashboard;

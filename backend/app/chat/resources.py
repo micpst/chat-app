@@ -57,7 +57,10 @@ class ChatData(Resource):
         Endpoint to get all messages sent to and received from the user.
         """
         messages = db.session \
-            .query(Message) \
+            .query(Message.recipient_id.label('recipientId'),
+                   Message.sender_id.label('senderId'),
+                   Message.body,
+                   Message.created_at.label('createdAt')) \
             .filter((Message.sender_id == current_user.id) & (Message.recipient_id == user_id) |
                     (Message.sender_id == user_id) & (Message.recipient_id == current_user.id)) \
             .all()
