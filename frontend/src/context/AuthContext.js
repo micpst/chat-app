@@ -1,26 +1,35 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 
-import AuthService from '../services/auth.service';
+import AuthService from '../services/auth';
+import UserService from '../services/user';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [authenticated, setAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const signup = user => AuthService.signup(user)
-        .then(() => setAuthenticated(true));
-
-    const login = user => AuthService.login(user)
-        .then(() => setAuthenticated(true));
-
-    const logout = () => AuthService.logout()
-        .then(() => setAuthenticated(false));
+    const signup = user => AuthService.signup(user);
+    const login = user => AuthService.login(user);
+    const logout = () => AuthService.logout();
 
     useEffect(() => {
-        setAuthenticated(AuthService.isAuthenticated());
-    }, []);
+        UserService.getCurrentUser()
+            .then(user => {
+                setUser(user);
+                const origin = location.state?.from?.pathname || '/chats';
+                navigate(origin);
+            })
+            .catch(err => setUser(null));
 
-    return <AuthContext.Provider value={{ authenticated, signup, login, logout }}>{children}</AuthContext.Provider>;
+    }, [signup, login, logout]);
+
+    return <AuthContext.Provider
+        value={{ user, signup, login, logout }}
+        children={children}
+    />;
 }
 
 export const useAuth = () => useContext(AuthContext);

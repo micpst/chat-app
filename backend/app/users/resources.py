@@ -1,4 +1,4 @@
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flask_restful import Resource, fields, marshal
 
 from app.users.models import User
@@ -27,3 +27,12 @@ class UserData(Resource):
         """
         user = User.query.get(user_id)
         return marshal(user, user_fields)
+
+
+class UserMeData(Resource):
+    @login_required
+    def get(self):
+        """
+        Endpoint to get data of authenticated user.
+        """
+        return marshal(current_user, user_fields)
