@@ -47,7 +47,7 @@ const Login = () => {
                     />
                     <label>Password</label>
                 </div>
-                <button type="submit" className="w-100 btn btn-lg btn-primary mb-5">Login</button>
+                <button type="submit" className="w-100 btn btn-lg btn-primary mb-5">Log In</button>
             </form>
             <Link to="/signup" className="w-100 btn btn-lg btn-success" role="button">Create new account</Link>
             <p className="mt-5 text-muted">Michał Pstrąg &copy; 2022</p>
