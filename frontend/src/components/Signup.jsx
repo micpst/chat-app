@@ -20,7 +20,11 @@ const Signup = () => {
         e.preventDefault();
         auth.signup({ name, email, password })
             .then(() => navigate('/chats', { replace: true }))
-            .catch(err => console.log(err));
+            .catch(err => {
+                setName('');
+                setEmail('');
+                setPassword('');
+            });
     }
 
     return (

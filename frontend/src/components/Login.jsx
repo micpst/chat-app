@@ -18,7 +18,10 @@ const Login = () => {
         e.preventDefault();
         auth.login({ email, password })
             .then(() => navigate('/chats', { replace: true }))
-            .catch(err => console.log(err));
+            .catch(err => {
+                setEmail('');
+                setPassword('');
+            });
     }
 
     return (
